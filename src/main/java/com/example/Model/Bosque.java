@@ -1,7 +1,11 @@
 package com.example.Model;
+import java.util.List;
+
 import jakarta.persistence.*;
 @Entity
 @Table(name = "bosques")
+
+/*Posteriormente añadir que en un bosque puede haber varios monstruos */
 
 public class Bosque {
 
@@ -15,7 +19,11 @@ public class Bosque {
     
     private String nombre;
     private int nivelPeligro;
+
+    @OneToMany ( targetEntity=Monstruo.class )
+    private List<Monstruo> listaMontruos;
     
+
 
     public Bosque(int id, String nombre, int nivelPeligro, Monstruo monstruoJefe) {
         this.id = id;
@@ -26,6 +34,14 @@ public class Bosque {
 
     public Bosque(){
         
+    }
+
+    public void setListaMontruos(List<Monstruo> listaMontruos) {
+        this.listaMontruos = listaMontruos;
+    }
+
+    public List<Monstruo> getListaMontruos() {
+        return listaMontruos;
     }
 
     public int getId() {

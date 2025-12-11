@@ -12,7 +12,11 @@ public class Monstruo {
     private String nombre;
     private int vida;
     private int fuerza;
-    private tipo tipo;
+    private tipo tipo;   
+    
+    @ManyToOne
+    @JoinColumn(name = "bosque_id")
+    private Bosque bosque;
 
     public Monstruo(int id, String nombre, int vida, int fuerza, tipo tipo) {
         this.id = id;
