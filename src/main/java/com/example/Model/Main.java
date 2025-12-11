@@ -9,7 +9,6 @@ public class Main {
             Interfaz interfaz = new Interfaz();
             interfaz.iniciar();
         } finally {
-            // Cerrar la SessionFactory al finalizar la aplicación
             Controlador.cerrarSessionFactory();
             System.out.println("SessionFactory cerrada correctamente");
         }
