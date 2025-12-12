@@ -26,7 +26,7 @@ public class Interfaz {
     static List<Monstruo> monstruos = new ArrayList<>();
 
     // Función general para crear un monstruo y añadirlo a una lista
-    public Monstruo crearMonstruo(boolean añadirALista) {
+    public Monstruo crearMonstruo(boolean añadirALista, Bosque bosque) {
         System.out.println("Creando monstruo...");
         System.out.print("Nombre del monstruo: ");
         String nombreMonstruo = scanner.nextLine();
@@ -47,9 +47,10 @@ public class Interfaz {
         monstruo.setVida(vidaMonstruo);
         monstruo.setFuerza(fuerzaMonstruo);
         monstruo.setTipo(tipo.valueOf(tipoMonstruo.toUpperCase()));
+        monstruo.setBosque(bosque);
         
         System.out.println("Monstruo creado: " + monstruo.getNombre() + " con vida " + monstruo.getVida() 
-                + ", fuerza " + monstruo.getFuerza() + " y tipo " + monstruo.geTipo());
+                + ", fuerza " + monstruo.getFuerza() + ", tipo " + monstruo.geTipo()+ ", en el bosque "+ bosque.getNombre());
         
         controlador.guardarMonstruo(monstruo);
         if (añadirALista) {
@@ -78,11 +79,6 @@ public class Interfaz {
         controlador.guardarMago(mago);
         System.out.println("Mago creado: " + mago.getNombre() + " con vida " + mago.getVida() + " y nivel de magia " + mago.getNivelMagia());
         
-        
-        
-        // Crear primer monstruo
-        Monstruo monstruo = crearMonstruo(true);
-        
         System.out.println("Creando bosque...");
         System.out.print("Nombre del bosque: ");
         String nombreBosque = scanner.nextLine();
@@ -92,6 +88,11 @@ public class Interfaz {
         Bosque bosque = new Bosque();
         bosque.setNombre(nombreBosque);
         bosque.setNivelPeligro(nivelPeligroBosque);
+        
+        // Crear primer monstruo
+        Monstruo monstruo = crearMonstruo(true, bosque);
+        
+        
         System.out.println("Seleccionando monstruo jefe para el bosque...");
         bosque.setMonstruoJefe(monstruo);
         
@@ -106,7 +107,7 @@ public class Interfaz {
             }
             
             if (letra.equals("S")) {
-                crearMonstruo(true);
+                crearMonstruo(true, bosque);
             }
         }
         bosque.setListaMontruos(monstruos);

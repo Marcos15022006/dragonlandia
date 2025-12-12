@@ -20,7 +20,7 @@ public class Bosque {
     private String nombre;
     private int nivelPeligro;
 
-    @OneToMany ( targetEntity=Monstruo.class )
+    @OneToMany ( mappedBy = "bosque")
     private List<Monstruo> listaMontruos;
     
 

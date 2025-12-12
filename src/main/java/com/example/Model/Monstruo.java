@@ -18,6 +18,8 @@ public class Monstruo {
     @JoinColumn(name = "bosque_id")
     private Bosque bosque;
 
+    
+
     public Monstruo(int id, String nombre, int vida, int fuerza, tipo tipo) {
         this.id = id;
         this.nombre = nombre;
@@ -72,6 +74,14 @@ public class Monstruo {
 
     public void setTipo(tipo tipo){
         this.tipo=tipo;
+    }
+
+    public Bosque getBosque() {
+        return bosque;
+    }
+
+    public void setBosque(Bosque bosque) {
+        this.bosque = bosque;
     }
 
 
