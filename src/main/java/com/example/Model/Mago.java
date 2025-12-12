@@ -13,6 +13,7 @@ public class Mago {
     private String nombre;
     private int vida;
     private int nivelMagia;
+    private Hechizo conjuro;
 
     public Mago(int id, String nombre, int vida, int nivelMagia) {
         this.id = id;
@@ -64,9 +65,46 @@ public class Mago {
         }
     }
 
+    public Hechizo getConjuro() {
+        return conjuro;
+    }
+
+    public void setConjuro(Hechizo conjuro) {
+        this.conjuro = conjuro;
+    }
+
     public void lanzarHechizo(Monstruo mostruo) {
         int nuevaVida = mostruo.getVida() - this.nivelMagia;
         mostruo.setVida(nuevaVida);
+    }
+
+    public void lanzarHechizo(Monstruo mostruo, Hechizo conjuro) {
+        int dano = 0;
+        switch (conjuro) {
+            case BOLA_DE_FUEGO:
+                dano = this.nivelMagia +5;
+                break;
+            case BOLA_DE_NIEVE:
+                dano = mostruo.getVida();
+                break;
+            case RAYO:
+                dano = this.nivelMagia +3;
+                break;
+            case PUTREFACCION:
+                dano = 10;
+                break;
+            default:
+                dano = -1;
+                break;
+        }
+        if (dano>0) {
+            int nuevaVida = mostruo.getVida() - (dano);
+            mostruo.setVida(nuevaVida);
+        } else{
+            int nuevaVida = this.getVida() - (dano);
+            this.setVida(nuevaVida);
+        }
+        
     }
     
 }

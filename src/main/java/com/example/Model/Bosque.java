@@ -22,8 +22,13 @@ public class Bosque {
 
     @OneToMany ( mappedBy = "bosque")
     private List<Monstruo> listaMontruos;
+
+    @OneToMany ( mappedBy = "bosque")
+    private List<Dragon> listaDragon;
     
 
+
+   
 
     public Bosque(int id, String nombre, int nivelPeligro, Monstruo monstruoJefe) {
         this.id = id;
@@ -76,11 +81,27 @@ public class Bosque {
         this.monstruoJefe = monstruo;
     }
 
+    public List<Dragon> getListaDragon() {
+        return listaDragon;
+    }
+
+    public void setListaDragon(List<Dragon> listaDragon) {
+        this.listaDragon = listaDragon;
+    }
+
     public void mostrarJefe() {
         System.out.println("El mounstro Jefe del bosque: " + monstruoJefe.getNombre() +", " + monstruoJefe.geTipo()+", vida: "+monstruoJefe.getVida()+", fuerza:"+monstruoJefe.getFuerza() );
     }
 
     public void cambiarJefe( Monstruo nuevoJefe){
         this.monstruoJefe=nuevoJefe;
+    }
+
+    public void addMonstruo(Monstruo monstruo){
+        this.listaMontruos.add(monstruo);
+    }
+
+    public void addDragon(Dragon dragon){
+        this.listaDragon.add(dragon);
     }
 }

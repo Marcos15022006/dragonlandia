@@ -1,5 +1,5 @@
 package com.example.Model;
 
-public enum tipo {
+public enum Tipo {
 OGRO, TROLL, SPECTRO
 }

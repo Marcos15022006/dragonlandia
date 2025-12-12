@@ -12,15 +12,15 @@ public class Monstruo {
     private String nombre;
     private int vida;
     private int fuerza;
-    private tipo tipo;   
+    private Tipo tipo;   
     
     @ManyToOne
-    @JoinColumn(name = "bosque_id")
+    @JoinColumn(name = "bosque_id", nullable = true)
     private Bosque bosque;
 
     
 
-    public Monstruo(int id, String nombre, int vida, int fuerza, tipo tipo) {
+    public Monstruo(int id, String nombre, int vida, int fuerza, Tipo tipo) {
         this.id = id;
         this.nombre = nombre;
         setVida(vida);
@@ -68,11 +68,11 @@ public class Monstruo {
         this.fuerza = fuerza;
     }
 
-    public tipo geTipo() {
+    public Tipo geTipo() {
         return tipo;
     }
 
-    public void setTipo(tipo tipo){
+    public void setTipo(Tipo tipo){
         this.tipo=tipo;
     }
 
