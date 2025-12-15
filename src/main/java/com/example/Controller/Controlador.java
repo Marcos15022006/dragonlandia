@@ -6,6 +6,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.example.Model.Bosque;
 import com.example.Model.Dragon;
+import com.example.Model.Hechizo;
 import com.example.Model.Mago;
 import com.example.Model.Monstruo;
 
@@ -77,6 +78,28 @@ public class Controlador {
         }
     }
 
+    public void eliminarMago(Mago mago){
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.remove(mago);
+            tx.commit();
+            System.out.println("Mago eliminado correctamente en la base de datos");
+        } catch(Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.err.println("Error al eliinar mago: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 
 
 
@@ -118,6 +141,28 @@ public class Controlador {
                 tx.rollback();
             }
             System.err.println("Error al actualizar bosque: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    public void eliminarBosque(Bosque bosque){
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.remove(bosque);
+            tx.commit();
+            System.out.println("Bosque eliminada correctamente en la base de datos");
+        } catch(Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.err.println("Error al eliminar bosque: " + e.getMessage());
             e.printStackTrace();
         } finally {
             if (session != null) {
@@ -173,6 +218,28 @@ public class Controlador {
         }
     }
 
+    public void eliminarMonstruo(Monstruo monstruo){
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.remove(monstruo);
+            tx.commit();
+            System.out.println("Monstruo eliminado correctamente en la base de datos");
+        } catch(Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.err.println("Error al eliminar monstruo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 
 
 
@@ -220,12 +287,34 @@ public class Controlador {
             }
         }
     }
+
+    public void eliminarDragon(Dragon dragon){
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.remove(dragon);
+            tx.commit();
+            System.out.println("Dragón eliminado correctamente en la base de datos");
+        } catch(Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.err.println("Error al eliminar dragón: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
     
     
     
-    public String combate(Monstruo monstruo, Mago mago){
+    public String combate(Monstruo monstruo, Mago mago, Hechizo hechizo){
         while (monstruo.getVida() >0 && mago.getVida()>0){
-            mago.lanzarHechizo(monstruo);
+            mago.lanzarHechizo(monstruo, hechizo);
             if (monstruo.getVida() >0){
                 monstruo.atacar(mago);
             }
@@ -233,11 +322,13 @@ public class Controlador {
         String resultado;
         if (monstruo.getVida() <=0){
             resultado="El mago "+mago.getNombre()+" ha ganado el combate.";
+            eliminarMonstruo(monstruo);
+            actualizarMago(mago);
         } else {
             resultado="El monstruo "+monstruo.getNombre()+" ha ganado el combate.";
+            eliminarMago(mago);
+            actualizarMonstruo(monstruo);
         }
-        actualizarMago(mago);
-        actualizarMonstruo(monstruo);
         return resultado;
     }
 }

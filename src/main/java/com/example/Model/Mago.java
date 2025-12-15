@@ -1,5 +1,7 @@
 
 package com.example.Model;
+import java.util.List;
+
 import jakarta.persistence.*;
 @Entity
 @Table(name = "magos")
@@ -13,13 +15,14 @@ public class Mago {
     private String nombre;
     private int vida;
     private int nivelMagia;
-    private Hechizo conjuro;
+    private List<Hechizo> conjuro;
 
-    public Mago(int id, String nombre, int vida, int nivelMagia) {
+    public Mago(int id, String nombre, int vida, int nivelMagia, List<Hechizo> conjuro) {
         this.id = id;
         this.nombre = nombre;
         setVida(vida);
         setNivelMagia(nivelMagia);
+        this.conjuro = conjuro;
     }
     public Mago(){
         
@@ -65,11 +68,11 @@ public class Mago {
         }
     }
 
-    public Hechizo getConjuro() {
+    public List<Hechizo> getConjuro() {
         return conjuro;
     }
 
-    public void setConjuro(Hechizo conjuro) {
+    public void setConjuro(List<Hechizo> conjuro) {
         this.conjuro = conjuro;
     }
 
@@ -78,33 +81,41 @@ public class Mago {
         mostruo.setVida(nuevaVida);
     }
 
-    public void lanzarHechizo(Monstruo mostruo, Hechizo conjuro) {
+    public void lanzarHechizo(Monstruo mostruo, Hechizo hechicin) {
         int dano = 0;
-        switch (conjuro) {
-            case BOLA_DE_FUEGO:
-                dano = this.nivelMagia +5;
-                break;
-            case BOLA_DE_NIEVE:
-                dano = mostruo.getVida();
-                break;
-            case RAYO:
-                dano = this.nivelMagia +3;
-                break;
-            case PUTREFACCION:
-                dano = 10;
-                break;
-            default:
-                dano = -1;
-                break;
-        }
-        if (dano>0) {
-            int nuevaVida = mostruo.getVida() - (dano);
-            mostruo.setVida(nuevaVida);
-        } else{
+        if(conjuro.contains(hechicin)==false){
+            System.out.println("El mago no conoce ese hechizo.");
             int nuevaVida = this.getVida() - (dano);
             this.setVida(nuevaVida);
-        }
+            
+        }else{
+            switch (hechicin) {
+                case BOLA_DE_FUEGO:
+                    dano = this.nivelMagia +5;
+                    break;
+                case BOLA_DE_NIEVE:
+                    dano = mostruo.getVida();
+                    break;
+                case RAYO:
+                    dano = this.nivelMagia +3;
+                    break;
+                case PUTREFACCION:
+                    dano = 10;
+                    break;
+                default:
+                    dano = -1;
+                    break;
+            }
+            if (dano>0) {
+                int nuevaVida = mostruo.getVida() - (dano);
+                mostruo.setVida(nuevaVida);
+            } else{
+                int nuevaVida = this.getVida() - (dano);
+                this.setVida(nuevaVida);
+            }
+    
         
+        }
     }
     
 }

@@ -1,5 +1,9 @@
 package com.example.Model;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import jakarta.persistence.*;
 @Entity
@@ -14,7 +18,8 @@ public class Bosque {
     private int id;
     
     @OneToOne
-    @JoinColumn(name = "monstruo_jefe_id")
+    @JoinColumn(name = "monstruo_jefe_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Monstruo monstruoJefe;
     
     private String nombre;
@@ -35,10 +40,13 @@ public class Bosque {
         this.nombre = nombre;
         this.nivelPeligro= nivelPeligro;
         this.monstruoJefe= monstruoJefe;
+        this.listaMontruos = new ArrayList<>();
+        this.listaDragon = new ArrayList<>();
     }
 
     public Bosque(){
-        
+        this.listaMontruos = new ArrayList<>();
+        this.listaDragon = new ArrayList<>();
     }
 
     public void setListaMontruos(List<Monstruo> listaMontruos) {

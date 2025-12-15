@@ -8,6 +8,7 @@ import java.util.Scanner;
 import com.example.Controller.Controlador;
 import com.example.Model.Bosque;
 import com.example.Model.Dragon;
+import com.example.Model.Hechizo;
 import com.example.Model.Mago;
 import com.example.Model.Monstruo;
 import com.example.Model.Tipo;
@@ -19,7 +20,7 @@ public class Interfaz {
     static List<Monstruo> monstruos = new ArrayList<>();
 
     // Función general para crear un monstruo y añadirlo al bosque
-    public Monstruo crearMonstruo(Bosque bosque) {
+    public void crearMonstruo(Bosque bosque) {
         System.out.println("Creando monstruo...");
         System.out.print("Nombre del monstruo: ");
         String nombreMonstruo = scanner.nextLine();
@@ -41,6 +42,7 @@ public class Interfaz {
         monstruo.setVida(vidaMonstruo);
         monstruo.setFuerza(fuerzaMonstruo);
         monstruo.setTipo(Tipo.valueOf(tipoMonstruo.toUpperCase()));
+        controlador.guardarMonstruo(monstruo);
         
         System.out.println("Monstruo creado: " + monstruo.getNombre() + " con vida " + monstruo.getVida() 
                 + ", fuerza " + monstruo.getFuerza() + ", tipo " + monstruo.geTipo());
@@ -54,9 +56,20 @@ public class Interfaz {
         }
         if (respuesta.equals("S")) {
             bosque.addMonstruo(monstruo);
+            controlador.actualizarBosque(bosque);
+            monstruo.setBosque(bosque);
+            controlador.actualizarMonstruo(monstruo);
         }
-        
-        return monstruo;
+        System.out.println("desea establecer este monstruo como el jefe del bosque? (S/N)");
+        String respuestaJefe = scanner.nextLine().toUpperCase();
+        while (!respuestaJefe.equals("S") && !respuestaJefe.equals("N")) {
+            System.out.println("Respuesta inválida. Vuelve a intentarlo:");
+            respuestaJefe = scanner.nextLine().toUpperCase();
+        }
+        if (respuestaJefe.equals("S")) {
+            bosque.setMonstruoJefe(monstruo);
+            controlador.actualizarBosque(bosque);
+        }
     }
 
     public void iniciar() {
@@ -71,12 +84,26 @@ public class Interfaz {
         System.out.print("Nivel de magia del mago: ");
         int nivelMagiaMago = scanner.nextInt();
         scanner.nextLine();
+        System.out.println("¿Cuántos hechizos conoce el mago?");
+        int numHechizos = scanner.nextInt();
+        scanner.nextLine();
+        List<Hechizo> hechizosConocidos = new ArrayList<>();
+        for (int i = 0; i < numHechizos; i++) {
+            System.out.print("Nombre del hechizo " + (i + 1) + " (BOLA_DE_FUEGO, BOLA_DE_NIEVE, RAYO, PUTREFACCION ): ");
+            String nombreHechizo = scanner.nextLine().toUpperCase();
+            while (!nombreHechizo.equals("BOLA_DE_FUEGO") && !nombreHechizo.equals("BOLA_DE_NIEVE") && !nombreHechizo.equals("RAYO") && !nombreHechizo.equals("PUTREFACCION")) {
+                System.out.println("Hechizo inválido. Vuelve a intentarlo:");
+                nombreHechizo = scanner.nextLine().toUpperCase();
+            }
+            hechizosConocidos.add(Hechizo.valueOf(nombreHechizo));
+        }
         Mago mago = new Mago();
         mago.setNombre(nombreMago);
         mago.setVida(vidaMago);
         mago.setNivelMagia(nivelMagiaMago);
+        mago.setConjuro(hechizosConocidos);
         controlador.guardarMago(mago);
-        System.out.println("Mago creado: " + mago.getNombre() + " con vida " + mago.getVida() + " y nivel de magia " + mago.getNivelMagia());
+        System.out.println("Mago creado: " + mago.getNombre() + " con vida " + mago.getVida() + ", nivel de magia " + mago.getNivelMagia()+ ", hechizos: " + mago.getConjuro());
         
         System.out.println("Creando bosque...");
         System.out.print("Nombre del bosque: ");
@@ -87,12 +114,13 @@ public class Interfaz {
         Bosque bosque = new Bosque();
         bosque.setNombre(nombreBosque);
         bosque.setNivelPeligro(nivelPeligroBosque);
+        System.out.println("Bosque creado: " + bosque.getNombre() + " con nivel de peligro " + bosque.getnivelPeligro());
+        controlador.guardarBosque(bosque);
         
         // Crear primer monstruo
-        Monstruo monstruo = crearMonstruo(bosque);
+        crearMonstruo(bosque);
         
         
-        System.out.println("Seleccionando monstruo jefe para el bosque...");
         
         // Opción para crear más monstruos
         String letra = "S";
@@ -109,21 +137,6 @@ public class Interfaz {
             }
         }
         
-        // Guardar primero el bosque SIN el monstruo jefe
-        System.out.println("Bosque creado: " + bosque.getNombre() + " con nivel de peligro " + bosque.getnivelPeligro());
-        System.out.println("Total de monstruos en el bosque: " + monstruos.size());
-        controlador.guardarBosque(bosque);
-        
-        // Ahora guardar los monstruos con la referencia al bosque
-        for (Monstruo m : monstruos) {
-            m.setBosque(bosque);
-            controlador.guardarMonstruo(m);
-        }
-        
-        // Finalmente, actualizar el bosque con el monstruo jefe
-        bosque.setMonstruoJefe(monstruo);
-        bosque.setListaMontruos(monstruos);
-        controlador.actualizarBosque(bosque);
 
         //Creando un Dragon
         System.out.println("Creando un Dragón...");
@@ -146,7 +159,8 @@ public class Interfaz {
         
         
         System.out.println("Comenzando la batalla entre el mago y el monstruo jefe del bosque...");
-        System.out.println(controlador.combate(monstruo, mago));
-        
+        Hechizo hechizo = Hechizo.BOLA_DE_FUEGO;
+        Monstruo monstruo = bosque.getMonstruoJefe();
+        System.out.println(controlador.combate(monstruo, mago, hechizo));
     }
 }
