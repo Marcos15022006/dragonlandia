@@ -158,9 +158,30 @@ public class Interfaz {
         controlador.actualizarBosque(bosque);
         
         
+        
         System.out.println("Comenzando la batalla entre el mago y el monstruo jefe del bosque...");
+        
         Hechizo hechizo = Hechizo.BOLA_DE_FUEGO;
         Monstruo monstruo = bosque.getMonstruoJefe();
         System.out.println(controlador.combate(monstruo, mago, hechizo));
+        
+        /*Monstruo monstruo= bosque.getMonstruoJefe();
+        while (monstruo.getVida() >0 && mago.getVida()>0){
+            System.out.println("El mago ataca");
+            System.out.print("Nombre del hechizo(BOLA_DE_FUEGO, BOLA_DE_NIEVE, RAYO, PUTREFACCION ): ");
+            String nombreHechizo = scanner.nextLine().toUpperCase();
+            while (!nombreHechizo.equals("BOLA_DE_FUEGO") && !nombreHechizo.equals("BOLA_DE_NIEVE") && !nombreHechizo.equals("RAYO") && !nombreHechizo.equals("PUTREFACCION")) {
+                System.out.println("Hechizo inválido. Vuelve a intentarlo:");
+                nombreHechizo = scanner.nextLine().toUpperCase();
+            }
+            Hechizo hechicin = Hechizo.valueOf(nombreHechizo);
+            controlador.combate(monstruo, mago, hechicin);
+            
+        }
+            */
+        
+        
+
+
     }
 }

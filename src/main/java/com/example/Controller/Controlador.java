@@ -332,3 +332,22 @@ public class Controlador {
         return resultado;
     }
 }
+
+/*public void combate(Monstruo monstruo, Mago mago, Hechizo hechizo){
+            mago.lanzarHechizo(monstruo, hechizo);
+            if (monstruo.getVida() >0){
+                System.out.println("El monstruo devuelve el ataque");
+                monstruo.atacar(mago);
+            }
+        
+        if (monstruo.getVida() <=0){
+            System.out.println("El mago "+mago.getNombre()+" ha ganado el combate.");
+            eliminarMonstruo(monstruo);
+            actualizarMago(mago);
+        } else {
+            System.out.println("El monstruo "+monstruo.getNombre()+" ha ganado el combate.");
+            eliminarMago(mago);
+            actualizarMonstruo(monstruo);
+        }
+    }
+} */
