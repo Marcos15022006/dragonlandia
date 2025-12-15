@@ -344,7 +344,7 @@ public class Controlador {
             System.out.println("El mago "+mago.getNombre()+" ha ganado el combate.");
             eliminarMonstruo(monstruo);
             actualizarMago(mago);
-        } else {
+        } else if (mago.getVida() <=0) {
             System.out.println("El monstruo "+monstruo.getNombre()+" ha ganado el combate.");
             eliminarMago(mago);
             actualizarMonstruo(monstruo);
