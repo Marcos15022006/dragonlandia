@@ -312,7 +312,7 @@ public class Controlador {
     
     
     
-    public String combate(Monstruo monstruo, Mago mago, Hechizo hechizo){
+    /*public String combate(Monstruo monstruo, Mago mago, Hechizo hechizo){
         while (monstruo.getVida() >0 && mago.getVida()>0){
             mago.lanzarHechizo(monstruo, hechizo);
             if (monstruo.getVida() >0){
@@ -332,12 +332,15 @@ public class Controlador {
         return resultado;
     }
 }
+    */
 
-/*public void combate(Monstruo monstruo, Mago mago, Hechizo hechizo){
+public void combate(Monstruo monstruo, Mago mago, Hechizo hechizo){
             mago.lanzarHechizo(monstruo, hechizo);
+            System.out.println("Mago "+mago.getNombre()+" lanza hechizo "+hechizo+" al monstruo "+monstruo.getNombre()+". Vida restante del monstruo: "+monstruo.getVida());
             if (monstruo.getVida() >0){
                 System.out.println("El monstruo devuelve el ataque");
                 monstruo.atacar(mago);
+                System.out.println("Vida restante del mago "+mago.getNombre()+": "+mago.getVida());
             }
         
         if (monstruo.getVida() <=0){
@@ -350,4 +353,4 @@ public class Controlador {
             actualizarMonstruo(monstruo);
         }
     }
-} */
+} 

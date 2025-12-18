@@ -161,11 +161,12 @@ public class Interfaz {
         
         System.out.println("Comenzando la batalla entre el mago y el monstruo jefe del bosque...");
         
-        Hechizo hechizo = Hechizo.BOLA_DE_FUEGO;
+        /*Hechizo hechizo = Hechizo.BOLA_DE_FUEGO;
         Monstruo monstruo = bosque.getMonstruoJefe();
         System.out.println(controlador.combate(monstruo, mago, hechizo));
+        */
         
-        /*Monstruo monstruo= bosque.getMonstruoJefe();
+        Monstruo monstruo= bosque.getMonstruoJefe();
         while (monstruo.getVida() >0 && mago.getVida()>0){
             System.out.println("El mago ataca");
             System.out.print("Nombre del hechizo(BOLA_DE_FUEGO, BOLA_DE_NIEVE, RAYO, PUTREFACCION ): ");
@@ -178,7 +179,7 @@ public class Interfaz {
             controlador.combate(monstruo, mago, hechicin);
             
         }
-            */
+            
         
         
 
