@@ -336,7 +336,6 @@ public class Controlador {
 
 public void combate(Monstruo monstruo, Mago mago, Hechizo hechizo){
             mago.lanzarHechizo(monstruo, hechizo);
-            System.out.println("Mago "+mago.getNombre()+" lanza hechizo "+hechizo+" al monstruo "+monstruo.getNombre()+". Vida restante del monstruo: "+monstruo.getVida());
             if (monstruo.getVida() >0){
                 System.out.println("El monstruo devuelve el ataque");
                 monstruo.atacar(mago);

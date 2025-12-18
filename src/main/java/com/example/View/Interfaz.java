@@ -179,6 +179,8 @@ public class Interfaz {
             controlador.combate(monstruo, mago, hechicin);
             
         }
+
+        
             
         
         

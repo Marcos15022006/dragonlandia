@@ -84,8 +84,8 @@ public class Mago {
     public void lanzarHechizo(Monstruo mostruo, Hechizo hechicin) {
         int dano = 0;
         if(conjuro.contains(hechicin)==false){
-            System.out.println("El mago no conoce ese hechizo.");
-            int nuevaVida = this.getVida() - (dano);
+            System.out.println("El mago no conoce ese hechizo, le explota en la cara restandole un punto de vida.");
+            int nuevaVida = this.getVida() - 1;
             this.setVida(nuevaVida);
             
         }else{
@@ -109,6 +109,7 @@ public class Mago {
             if (dano>0) {
                 int nuevaVida = mostruo.getVida() - (dano);
                 mostruo.setVida(nuevaVida);
+                System.out.println("Mago "+this.getNombre()+" lanza hechizo "+hechicin+" al monstruo "+mostruo.getNombre()+". Vida restante del monstruo: "+mostruo.getVida());
             } else{
                 int nuevaVida = this.getVida() - (dano);
                 this.setVida(nuevaVida);
