@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.text.html.parser.Entity;
 
 import com.example.Controller.Controlador;
 import com.example.Model.Bosque;
@@ -13,11 +14,18 @@ import com.example.Model.Mago;
 import com.example.Model.Monstruo;
 import com.example.Model.Tipo;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+
 public class Interfaz {
 
     static Scanner scanner = new Scanner(System.in);
     static Controlador controlador = new Controlador();
     static List<Monstruo> monstruos = new ArrayList<>();
+    
+    static EntityManager entityManager = controlador.getEntityManagerInstance();
+    static EntityTransaction transaction = entityManager.getTransaction();
 
     // Función general para crear un monstruo y añadirlo al bosque
     public void crearMonstruo(Bosque bosque) {
@@ -73,6 +81,7 @@ public class Interfaz {
     }
 
     public void iniciar() {
+        transaction.begin();
         System.out.println("Bienvenido al simulador de batallas entre magos y monstruos!");
         System.out.println("Por favor, ingrese los datos del mago y el monstruo para comenzar la simulación.");
         
@@ -84,18 +93,26 @@ public class Interfaz {
         System.out.print("Nivel de magia del mago: ");
         int nivelMagiaMago = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("¿Cuántos hechizos conoce el mago?");
+        System.out.println("¿Cuántos hechizos conoce el mago? (máximo 3)");
         int numHechizos = scanner.nextInt();
+        while (numHechizos < 0 || numHechizos > 3) {
+            System.out.println("Número inválido. Debe ser entre 0 y 3:");
+            numHechizos = scanner.nextInt();
+        }
         scanner.nextLine();
         List<Hechizo> hechizosConocidos = new ArrayList<>();
         for (int i = 0; i < numHechizos; i++) {
-            System.out.print("Nombre del hechizo " + (i + 1) + " (BOLA_DE_FUEGO, BOLA_DE_NIEVE, RAYO, PUTREFACCION ): ");
+            System.out.print("Nombre del hechizo " + (i + 1) + " (BOLA_DE_FUEGO, CONGELACION, RAYO): ");
             String nombreHechizo = scanner.nextLine().toUpperCase();
-            while (!nombreHechizo.equals("BOLA_DE_FUEGO") && !nombreHechizo.equals("BOLA_DE_NIEVE") && !nombreHechizo.equals("RAYO") && !nombreHechizo.equals("PUTREFACCION")) {
-                System.out.println("Hechizo inválido. Vuelve a intentarlo:");
+            while (!nombreHechizo.equals("BOLA_DE_FUEGO") && !nombreHechizo.equals("CONGELACION") && !nombreHechizo.equals("RAYO")) {
+                System.out.println("Hechizo inválido. Debe ser BOLA_DE_FUEGO, CONGELACION o RAYO:");
                 nombreHechizo = scanner.nextLine().toUpperCase();
             }
-            hechizosConocidos.add(Hechizo.valueOf(nombreHechizo));
+            
+            Hechizo hechizo = Hechizo.fromString(nombreHechizo);
+            if (hechizo != null) {
+                hechizosConocidos.add(hechizo);
+            }
         }
         Mago mago = new Mago();
         mago.setNombre(nombreMago);
@@ -169,13 +186,20 @@ public class Interfaz {
         Monstruo monstruo= bosque.getMonstruoJefe();
         while (monstruo.getVida() >0 && mago.getVida()>0){
             System.out.println("El mago ataca");
-            System.out.print("Nombre del hechizo(BOLA_DE_FUEGO, BOLA_DE_NIEVE, RAYO, PUTREFACCION ): ");
+            System.out.println("Hechizos disponibles:");
+            for (Hechizo h : mago.getConjuro()) {
+                System.out.println("- " + h.getNombre());
+            }
+            System.out.print("Nombre del hechizo (BOLA_DE_FUEGO, CONGELACION, RAYO): ");
             String nombreHechizo = scanner.nextLine().toUpperCase();
-            while (!nombreHechizo.equals("BOLA_DE_FUEGO") && !nombreHechizo.equals("BOLA_DE_NIEVE") && !nombreHechizo.equals("RAYO") && !nombreHechizo.equals("PUTREFACCION")) {
-                System.out.println("Hechizo inválido. Vuelve a intentarlo:");
+            
+            while (!nombreHechizo.equals("BOLA_DE_FUEGO") && !nombreHechizo.equals("CONGELACION") && !nombreHechizo.equals("RAYO")) {
+                System.out.println("Hechizo inválido. Debe ser BOLA_DE_FUEGO, CONGELACION o RAYO:");
                 nombreHechizo = scanner.nextLine().toUpperCase();
             }
-            Hechizo hechicin = Hechizo.valueOf(nombreHechizo);
+            
+            Hechizo hechicin = Hechizo.fromString(nombreHechizo);
+            
             controlador.combate(monstruo, mago, hechicin);
             
         }

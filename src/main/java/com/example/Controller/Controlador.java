@@ -1,8 +1,4 @@
 package com.example.Controller;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import com.example.Model.Bosque;
 import com.example.Model.Dragon;
@@ -12,33 +8,202 @@ import com.example.Model.Monstruo;
 
 public class Controlador {
 
-    private static SessionFactory sessionFactory;
+    private ControladorMago controladorMago = new ControladorMago();
+    private ControladorBosque controladorBosque = new ControladorBosque();
+    private ControladorMonstruo controladorMonstruo = new ControladorMonstruo();
+    private ControladorDragon controladorDragon = new ControladorDragon();
+    private ControladorHechizo controladorHechizo = new ControladorHechizo();
 
-    
-    private static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            try {
-                sessionFactory = new Configuration().configure().buildSessionFactory();
-            } catch (Exception e) {
-                System.err.println("Error al crear SessionFactory: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-        return sessionFactory;
+    // Métodos delegados para Mago
+    public void guardarMago(Mago mago) {
+        controladorMago.guardarMago(mago);
     }
 
-    
-    public static void cerrarSessionFactory() {
-        if (sessionFactory != null && !sessionFactory.isClosed()) {
-            sessionFactory.close();
-        }
+    public void actualizarMago(Mago mago) {
+        controladorMago.actualizarMago(mago);
     }
 
-    public void guardarMago(Mago mago){
+    public void eliminarMago(Mago mago) {
+        controladorMago.eliminarMago(mago);
+    }
+
+    public Mago obtenerMago(int id) {
+        return controladorMago.obtenerMago(id);
+    }
+
+    // Métodos delegados para Bosque
+    public void guardarBosque(Bosque bosque) {
+        controladorBosque.guardarBosque(bosque);
+    }
+
+    public void actualizarBosque(Bosque bosque) {
+        controladorBosque.actualizarBosque(bosque);
+    }
+
+    public void eliminarBosque(Bosque bosque) {
+        controladorBosque.eliminarBosque(bosque);
+    }
+
+    public Bosque obtenerBosque(int id) {
+        return controladorBosque.obtenerBosque(id);
+    }
+
+    // Métodos delegados para Monstruo
+    public void guardarMonstruo(Monstruo monstruo) {
+        controladorMonstruo.guardarMonstruo(monstruo);
+    }
+
+    public void actualizarMonstruo(Monstruo monstruo) {
+        controladorMonstruo.actualizarMonstruo(monstruo);
+    }
+
+    public void eliminarMonstruo(Monstruo monstruo) {
+        controladorMonstruo.eliminarMonstruo(monstruo);
+    }
+
+    public Monstruo obtenerMonstruo(int id) {
+        return controladorMonstruo.obtenerMonstruo(id);
+    }
+
+    // Métodos delegados para Dragon
+    public void guardarDragon(Dragon dragon) {
+        controladorDragon.guardarDragon(dragon);
+    }
+
+    public void actualizarDragon(Dragon dragon) {
+        controladorDragon.actualizarDragon(dragon);
+    }
+
+    public void eliminarDragon(Dragon dragon) {
+        controladorDragon.eliminarDragon(dragon);
+    }
+
+    public Dragon obtenerDragon(int id) {
+        return controladorDragon.obtenerDragon(id);
+    }
+
+    // Métodos delegados para Hechizo
+    public void guardarHechizo(Hechizo hechizo) {
+        controladorHechizo.guardarHechizo(hechizo);
+    }
+
+    public void actualizarHechizo(Hechizo hechizo) {
+        controladorHechizo.actualizarHechizo(hechizo);
+    }
+
+    public void eliminarHechizo(Hechizo hechizo) {
+        controladorHechizo.eliminarHechizo(hechizo);
+    }
+
+    public Hechizo obtenerHechizo(int id) {
+        return controladorHechizo.obtenerHechizo(id);
+    }
+
+    // Método de combate
+    public void combate(Monstruo monstruo, Mago mago, Hechizo hechizo) {
+        mago.lanzarHechizo(monstruo, hechizo);
+        if (monstruo.getVida() > 0) {
+            System.out.println("El monstruo devuelve el ataque");
+            monstruo.atacar(mago);
+            System.out.println("Vida restante del mago " + mago.getNombre() + ": " + mago.getVida());
+        }
+
+        if (monstruo.getVida() <= 0) {
+            System.out.println("El mago " + mago.getNombre() + " ha ganado el combate.");
+            eliminarMonstruo(monstruo);
+            actualizarMago(mago);
+        } else if (mago.getVida() <= 0) {
+            System.out.println("El monstruo " + monstruo.getNombre() + " ha ganado el combate.");
+            eliminarMago(mago);
+            actualizarMonstruo(monstruo);
+        }
+    }
+}
+    }
+
+    public void eliminarBosque(Bosque bosque) {
+        controladorBosque.eliminarBosque(bosque);
+    }
+
+    public Bosque obtenerBosque(int id) {
+        return controladorBosque.obtenerBosque(id);
+    }
+
+    // Métodos delegados para Monstruo
+    public void guardarMonstruo(Monstruo monstruo) {
+        controladorMonstruo.guardarMonstruo(monstruo);
+    }
+
+    public void actualizarMonstruo(Monstruo monstruo) {
+        controladorMonstruo.actualizarMonstruo(monstruo);
+    }
+
+    public void eliminarMonstruo(Monstruo monstruo) {
+        controladorMonstruo.eliminarMonstruo(monstruo);
+    }
+
+    public Monstruo obtenerMonstruo(int id) {
+        return controladorMonstruo.obtenerMonstruo(id);
+    }
+
+    // Métodos delegados para Dragon
+    public void guardarDragon(Dragon dragon) {
+        controladorDragon.guardarDragon(dragon);
+    }
+
+    public void actualizarDragon(Dragon dragon) {
+        controladorDragon.actualizarDragon(dragon);
+    }
+
+    public void eliminarDragon(Dragon dragon) {
+        controladorDragon.eliminarDragon(dragon);
+    }
+
+    public Dragon obtenerDragon(int id) {
+        return controladorDragon.obtenerDragon(id);
+    }
+
+    // Métodos delegados para Hechizo
+    public void guardarHechizo(Hechizo hechizo) {
+        controladorHechizo.guardarHechizo(hechizo);
+    }
+
+    public void actualizarHechizo(Hechizo hechizo) {
+        controladorHechizo.actualizarHechizo(hechizo);
+    }
+
+    public void eliminarHechizo(Hechizo hechizo) {
+        controladorHechizo.eliminarHechizo(hechizo);
+    }
+
+    public Hechizo obtenerHechizo(int id) {
+        return controladorHechizo.obtenerHechizo(id);
+    }
+
+    // Método de combate
+    public void combate(Monstruo monstruo, Mago mago, Hechizo hechizo) {
+        mago.lanzarHechizo(monstruo, hechizo);
+        if (monstruo.getVida() > 0) {
+            System.out.println("El monstruo devuelve el ataque");
+            monstruo.atacar(mago);
+            System.out.println("Vida restante del mago " + mago.getNombre() + ": " + mago.getVida());
+        }
+
+        if (monstruo.getVida() <= 0) {
+            System.out.println("El mago " + mago.getNombre() + " ha ganado el combate.");
+            eliminarMonstruo(monstruo);
+            actualizarMago(mago);
+        } else if (mago.getVida() <= 0) {
+            System.out.println("El monstruo " + monstruo.getNombre() + " ha ganado el combate.");
+            eliminarMago(mago);
+            actualizarMonstruo(monstruo);
+        }
+    }
+}
         Session session = null;
         Transaction tx = null;
         try {
-            session = getSessionFactory().openSession();
+            session = g().openSession();
             tx = session.beginTransaction();
             session.persist(mago);
             tx.commit();
@@ -390,6 +555,92 @@ public class Controlador {
         }
     }
     
+
+    public void guardarHechizo(Hechizo hechizo){
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.persist(hechizo);
+            tx.commit();
+            System.out.println("Hechizo guardado correctamente en la base de datos");
+        } catch(Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.err.println("Error al guardar hechizo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    public void actualizarHechizo(Hechizo hechizo){
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.merge(hechizo);
+            tx.commit();
+            System.out.println("Hechizo actualizado correctamente en la base de datos");
+        } catch(Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.err.println("Error al actualizar hechizo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    public void eliminarHechizo(Hechizo hechizo){
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.remove(hechizo);
+            tx.commit();
+            System.out.println("Hechizo eliminado correctamente en la base de datos");
+        } catch(Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.err.println("Error al eliminar hechizo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    public void obtenerHechizo(int id){
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Hechizo hechizo = session.get(Hechizo.class, id);
+            if (hechizo != null) {
+                System.out.println("Hechizo encontrado: " + hechizo.getNombre());
+            } else {
+                System.out.println("No se encontró ningún hechizo con el ID proporcionado.");
+            }
+        } catch(Exception e) {
+            System.err.println("Error al obtener hechizo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
     
     
     /*public String combate(Monstruo monstruo, Mago mago, Hechizo hechizo){

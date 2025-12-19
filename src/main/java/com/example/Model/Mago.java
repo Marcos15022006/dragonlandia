@@ -83,39 +83,43 @@ public class Mago {
 
     public void lanzarHechizo(Monstruo mostruo, Hechizo hechicin) {
         int dano = 0;
-        if(conjuro.contains(hechicin)==false){
+        boolean conoceHechizo = false;
+        
+        // Verificar si el mago conoce el hechizo
+        for (Hechizo h : conjuro) {
+            if (h.getNombre() == hechicin.getNombre()) {
+                conoceHechizo = true;
+                break;
+            }
+        }
+        
+        if(!conoceHechizo){
             System.out.println("El mago no conoce ese hechizo, le explota en la cara restandole un punto de vida.");
             int nuevaVida = this.getVida() - 1;
             this.setVida(nuevaVida);
             
         }else{
-            switch (hechicin) {
+            // Calcular daño según el tipo de hechizo
+            switch (hechicin.getNombre()) {
                 case BOLA_DE_FUEGO:
-                    dano = this.nivelMagia +5;
-                    break;
-                case BOLA_DE_NIEVE:
-                    dano = mostruo.getVida();
+                    dano = this.nivelMagia * 2;
                     break;
                 case RAYO:
-                    dano = this.nivelMagia +3;
+                    dano = this.nivelMagia + 10;
                     break;
-                case PUTREFACCION:
-                    dano = 10;
-                    break;
-                default:
-                    dano = -1;
+                case CONGELACION:
+                    dano = mostruo.getVida();
                     break;
             }
+            
             if (dano>0) {
-                int nuevaVida = mostruo.getVida() - (dano);
+                int nuevaVida = mostruo.getVida() - dano;
                 mostruo.setVida(nuevaVida);
-                System.out.println("Mago "+this.getNombre()+" lanza hechizo "+hechicin+" al monstruo "+mostruo.getNombre()+". Vida restante del monstruo: "+mostruo.getVida());
+                System.out.println("Mago "+this.getNombre()+" lanza hechizo "+hechicin.getNombre()+" al monstruo "+mostruo.getNombre()+". Daño: "+dano+". Vida restante del monstruo: "+mostruo.getVida());
             } else{
-                int nuevaVida = this.getVida() - (dano);
+                int nuevaVida = this.getVida() - dano;
                 this.setVida(nuevaVida);
             }
-    
-        
         }
     }
     
