@@ -100,6 +100,26 @@ public class Controlador {
         }
     }
 
+    public void obtenerMago(int id){
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Mago mago = session.get(Mago.class, id);
+            if (mago != null) {
+                System.out.println("Mago encontrado: " + mago.getNombre());
+            } else {
+                System.out.println("No se encontró ningún mago con el ID proporcionado.");
+            }
+        } catch(Exception e) {
+            System.err.println("Error al obtener mago: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 
 
 
@@ -163,6 +183,26 @@ public class Controlador {
                 tx.rollback();
             }
             System.err.println("Error al eliminar bosque: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    public void obtenerBosque(int id){
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Bosque bosque = session.get(Bosque.class, id);
+            if (bosque != null) {
+                System.out.println("Bosque encontrado: " + bosque.getNombre());
+            } else {
+                System.out.println("No se encontró ningún bosque con el ID proporcionado.");
+            }
+        } catch(Exception e) {
+            System.err.println("Error al obtener bosque: " + e.getMessage());
             e.printStackTrace();
         } finally {
             if (session != null) {
@@ -240,6 +280,26 @@ public class Controlador {
         }
     }
 
+    public void obtenerMonstruo(int id){
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Monstruo monstruo = session.get(Monstruo.class, id);
+            if (monstruo != null) {
+                System.out.println("Monstruo encontrado: " + monstruo.getNombre());
+            } else {
+                System.out.println("No se encontró ningún monstruo con el ID proporcionado.");
+            }
+        } catch(Exception e) {
+            System.err.println("Error al obtener monstruo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 
 
 
@@ -302,6 +362,26 @@ public class Controlador {
                 tx.rollback();
             }
             System.err.println("Error al eliminar dragón: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    public void obtenerDragon(int id){
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Dragon dragon = session.get(Dragon.class, id);
+            if (dragon != null) {
+                System.out.println("Dragón encontrado: " + dragon.getNombre());
+            } else {
+                System.out.println("No se encontró ningún dragón con el ID proporcionado.");
+            }
+        } catch(Exception e) {
+            System.err.println("Error al obtener dragón: " + e.getMessage());
             e.printStackTrace();
         } finally {
             if (session != null) {
