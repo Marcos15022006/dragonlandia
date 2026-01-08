@@ -16,10 +16,10 @@ import com.example.Model.Tipo;
 public class Interfaz {
 
     static Scanner scanner = new Scanner(System.in);
-    static Controlador controlador = new Controlador();
+    static Controlador controlador = Controlador.getInstance();
     static List<Monstruo> monstruos = new ArrayList<>();
 
-    // Función general para crear un monstruo y añadirlo al bosque
+    
     public void crearMonstruo(Bosque bosque) {
         System.out.println("Creando monstruo...");
         System.out.print("Nombre del monstruo: ");
@@ -72,11 +72,8 @@ public class Interfaz {
         }
     }
 
-    public void iniciar() {
-        System.out.println("Bienvenido al simulador de batallas entre magos y monstruos!");
-        System.out.println("Por favor, ingrese los datos del mago y el monstruo para comenzar la simulación.");
-        
-        System.out.println("Creando mago...");
+    public Mago crearMago(){
+         System.out.println("Creando mago...");
         System.out.print("Nombre del mago: ");
         String nombreMago = scanner.nextLine();
         System.out.print("Vida del mago: ");
@@ -104,7 +101,17 @@ public class Interfaz {
         mago.setConjuro(hechizosConocidos);
         controlador.guardarMago(mago);
         System.out.println("Mago creado: " + mago.getNombre() + " con vida " + mago.getVida() + ", nivel de magia " + mago.getNivelMagia()+ ", hechizos: " + mago.getConjuro());
+        return mago;
+    }
+
+    public void iniciar() {
+        System.out.println("Bienvenido al simulador de batallas entre magos y monstruos!");
+        System.out.println("Por favor, ingrese los datos del mago y el monstruo para comenzar la simulación.");
         
+        Mago mago=crearMago();
+        Mago mago2= crearMago();
+        
+
         System.out.println("Creando bosque...");
         System.out.print("Nombre del bosque: ");
         String nombreBosque = scanner.nextLine();
@@ -161,24 +168,24 @@ public class Interfaz {
         
         System.out.println("Comenzando la batalla entre el mago y el monstruo jefe del bosque...");
         
-        /*Hechizo hechizo = Hechizo.BOLA_DE_FUEGO;
+        /* Hechizo hechizo = Hechizo.BOLA_DE_FUEGO;
         Monstruo monstruo = bosque.getMonstruoJefe();
-        System.out.println(controlador.combate(monstruo, mago, hechizo));
-        */
+        System.out.println(controlador.combate(monstruo, mago, hechizo)); */
         
-        Monstruo monstruo= bosque.getMonstruoJefe();
-        while (monstruo.getVida() >0 && mago.getVida()>0){
-            System.out.println("El mago ataca");
-            System.out.print("Nombre del hechizo(BOLA_DE_FUEGO, BOLA_DE_NIEVE, RAYO, PUTREFACCION ): ");
-            String nombreHechizo = scanner.nextLine().toUpperCase();
-            while (!nombreHechizo.equals("BOLA_DE_FUEGO") && !nombreHechizo.equals("BOLA_DE_NIEVE") && !nombreHechizo.equals("RAYO") && !nombreHechizo.equals("PUTREFACCION")) {
-                System.out.println("Hechizo inválido. Vuelve a intentarlo:");
-                nombreHechizo = scanner.nextLine().toUpperCase();
-            }
-            Hechizo hechicin = Hechizo.valueOf(nombreHechizo);
-            controlador.combate(monstruo, mago, hechicin);
+        
+         Monstruo monstruo= bosque.getMonstruoJefe();
+         while (monstruo.getVida() >0 && mago.getVida()>0){
+             System.out.println("El mago ataca");
+             System.out.print("Nombre del hechizo(BOLA_DE_FUEGO, BOLA_DE_NIEVE, RAYO, PUTREFACCION ): ");
+             String nombreHechizo = scanner.nextLine().toUpperCase();
+             while (!nombreHechizo.equals("BOLA_DE_FUEGO") && !nombreHechizo.equals("BOLA_DE_NIEVE") && !nombreHechizo.equals("RAYO") && !nombreHechizo.equals("PUTREFACCION")) {
+                 System.out.println("Hechizo inválido. Vuelve a intentarlo:");
+                 nombreHechizo = scanner.nextLine().toUpperCase();
+             }
+             Hechizo hechicin = Hechizo.valueOf(nombreHechizo);
+             controlador.combate(monstruo, mago, hechicin);
             
-        }
+         }
 
 
 

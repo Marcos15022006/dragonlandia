@@ -12,6 +12,8 @@ public class Monstruo {
     private String nombre;
     private int vida;
     private int fuerza;
+    
+    @Enumerated(EnumType.STRING)
     private Tipo tipo;   
     
     @ManyToOne

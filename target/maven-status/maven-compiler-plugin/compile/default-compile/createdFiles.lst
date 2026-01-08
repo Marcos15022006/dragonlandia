@@ -1,7 +1,10 @@
 com/example/Model/Bosque.class
-com/example/Model/tipo.class
+com/example/Model/Tipo.class
 com/example/View/Interfaz.class
 com/example/Model/Monstruo.class
+com/example/Model/Hechizo.class
 com/example/Model/Mago.class
+com/example/Model/Dragon.class
+com/example/Model/Mago$1.class
 com/example/Model/Main.class
 com/example/Controller/Controlador.class

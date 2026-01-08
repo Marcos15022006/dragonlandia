@@ -15,6 +15,11 @@ public class Mago {
     private String nombre;
     private int vida;
     private int nivelMagia;
+    
+    @ElementCollection(targetClass = Hechizo.class)
+    @CollectionTable(name = "mago_hechizos", joinColumns = @JoinColumn(name = "mago_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "hechizo")
     private List<Hechizo> conjuro;
 
     public Mago(int id, String nombre, int vida, int nivelMagia, List<Hechizo> conjuro) {

@@ -9,8 +9,8 @@ public class Main {
             Interfaz interfaz = new Interfaz();
             interfaz.iniciar();
         } finally {
-            Controlador.cerrarSessionFactory();
-            System.out.println("SessionFactory cerrada correctamente");
+            Controlador.cerrarEntityManagerFactory();
+            System.out.println("EntityManagerFactory cerrada correctamente");
         }
     }
 }
