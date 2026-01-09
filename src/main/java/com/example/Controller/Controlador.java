@@ -1,7 +1,6 @@
 package com.example.Controller;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
 import com.example.Model.Bosque;
@@ -53,11 +52,6 @@ public class Controlador {
         return entityManagerFactory.createEntityManager();
     }
 
-    public EntityTransaction getTransaction(){
-        return getEntityManager().getTransaction();
-    }
-
-    
     
     public static void cerrarEntityManagerFactory() {
         if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
@@ -65,12 +59,12 @@ public class Controlador {
         }
     }
     
-    // Método de compatibilidad
+    
     public static void cerrarSessionFactory() {
         cerrarEntityManagerFactory();
     }
 
-// Metodos delegados para Mago
+
     public void guardarMago(Mago mago){
         controladorMago.guardar(mago);
     }
@@ -87,7 +81,7 @@ public class Controlador {
         controladorMago.obtener(id);
     }
 
-    // Metodos delegados para Bosque
+    
     public void guardarBosque(Bosque bosque){
         controladorBosque.guardar(bosque);
     }

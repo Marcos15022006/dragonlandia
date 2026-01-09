@@ -16,10 +16,12 @@ public class Mago {
     private int vida;
     private int nivelMagia;
     
-    @ElementCollection(targetClass = Hechizo.class)
+    @ElementCollection
     @CollectionTable(name = "mago_hechizos", joinColumns = @JoinColumn(name = "mago_id"))
-    @Enumerated(EnumType.STRING)
     @Column(name = "hechizo")
+    private List<String> conjuroNombres;
+    
+    @Transient
     private List<Hechizo> conjuro;
 
     public Mago(int id, String nombre, int vida, int nivelMagia, List<Hechizo> conjuro) {
@@ -74,11 +76,23 @@ public class Mago {
     }
 
     public List<Hechizo> getConjuro() {
+        if (conjuro == null && conjuroNombres != null) {
+            conjuro = new java.util.ArrayList<>();
+            for (String nombre : conjuroNombres) {
+                conjuro.add(Hechizo.valueOf(nombre));
+            }
+        }
         return conjuro;
     }
 
     public void setConjuro(List<Hechizo> conjuro) {
         this.conjuro = conjuro;
+        if (conjuro != null) {
+            conjuroNombres = new java.util.ArrayList<>();
+            for (Hechizo h : conjuro) {
+                conjuroNombres.add(h.getNombre());
+            }
+        }
     }
 
     public void lanzarHechizo(Monstruo mostruo) {
@@ -88,39 +102,42 @@ public class Mago {
 
     public void lanzarHechizo(Monstruo mostruo, Hechizo hechicin) {
         int dano = 0;
-        if(conjuro.contains(hechicin)==false){
+        List<Hechizo> hechizosConocidos = getConjuro();
+        boolean conoceHechizo = false;
+        
+        if (hechizosConocidos != null) {
+            for (Hechizo h : hechizosConocidos) {
+                if (h.equals(hechicin)) {
+                    conoceHechizo = true;
+                }
+            }
+        }
+        
+        if (!conoceHechizo) {
             System.out.println("El mago no conoce ese hechizo, le explota en la cara restandole un punto de vida.");
             int nuevaVida = this.getVida() - 1;
             this.setVida(nuevaVida);
-            
-        }else{
-            switch (hechicin) {
-                case BOLA_DE_FUEGO:
-                    dano = this.nivelMagia +5;
-                    break;
-                case BOLA_DE_NIEVE:
-                    dano = mostruo.getVida();
-                    break;
-                case RAYO:
-                    dano = this.nivelMagia +3;
-                    break;
-                case PUTREFACCION:
-                    dano = 10;
-                    break;
-                default:
-                    dano = -1;
-                    break;
+        } else {
+            if (hechicin.equals(Hechizo.BOLA_DE_FUEGO)) {
+                dano = this.nivelMagia + 5;
+            } else if (hechicin.equals(Hechizo.BOLA_DE_NIEVE)) {
+                dano = mostruo.getVida();
+            } else if (hechicin.equals(Hechizo.RAYO)) {
+                dano = this.nivelMagia + 3;
+            } else if (hechicin.equals(Hechizo.PUTREFACCION)) {
+                dano = 10;
+            } else {
+                dano = -1;
             }
-            if (dano>0) {
-                int nuevaVida = mostruo.getVida() - (dano);
+            
+            if (dano > 0) {
+                int nuevaVida = mostruo.getVida() - dano;
                 mostruo.setVida(nuevaVida);
-                System.out.println("Mago "+this.getNombre()+" lanza hechizo "+hechicin+" al monstruo "+mostruo.getNombre()+". Vida restante del monstruo: "+mostruo.getVida());
-            } else{
-                int nuevaVida = this.getVida() - (dano);
+                System.out.println("Mago " + this.getNombre() + " lanza hechizo " + hechicin + " al monstruo " + mostruo.getNombre() + ". Vida restante del monstruo: " + mostruo.getVida());
+            } else {
+                int nuevaVida = this.getVida() - dano;
                 this.setVida(nuevaVida);
             }
-    
-        
         }
     }
     
