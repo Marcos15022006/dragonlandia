@@ -1,0 +1,106 @@
+package com.example.Controller;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import com.example.Model.Dragon;
+
+public class ControladorDragon {
+    
+    private Controlador controladorPrincipal;
+    
+    public ControladorDragon(Controlador controladorPrincipal) {
+        this.controladorPrincipal = controladorPrincipal;
+    }
+    
+    public void guardar(Dragon dragon) {
+        EntityManager em = null;
+        EntityTransaction tx = null;
+        try {
+            em = controladorPrincipal.getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+            em.persist(dragon);
+            tx.commit();
+            System.out.println("Dragon guardado correctamente en la base de datos");
+        } catch(Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            System.err.println("Error al guardar dragon: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    public void actualizar(Dragon dragon) {
+        EntityManager em = null;
+        EntityTransaction tx = null;
+        try {
+            em = controladorPrincipal.getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+            em.merge(dragon);
+            tx.commit();
+            System.out.println("Dragon actualizado correctamente en la base de datos");
+        } catch(Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            System.err.println("Error al actualizar dragon: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    public void eliminar(Dragon dragon) {
+        EntityManager em = null;
+        EntityTransaction tx = null;
+        try {
+            em = controladorPrincipal.getEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
+            Dragon dragonManaged = em.merge(dragon);
+            em.remove(dragonManaged);
+            tx.commit();
+            System.out.println("Dragon eliminado correctamente en la base de datos");
+        } catch(Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            System.err.println("Error al eliminar dragon: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    public Dragon obtener(int id) {
+        EntityManager em = null;
+        try {
+            em = controladorPrincipal.getEntityManager();
+            Dragon dragon = em.find(Dragon.class, id);
+            if (dragon != null) {
+                System.out.println("Dragon encontrado: " + dragon.getNombre());
+            } else {
+                System.out.println("No se encontro ningun dragon con el ID proporcionado.");
+            }
+            return dragon;
+        } catch(Exception e) {
+            System.err.println("Error al obtener dragon: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+}
