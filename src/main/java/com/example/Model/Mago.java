@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "magos")
 
+/**
+ * Representa un mago con hechizos y poderes mágicos
+ */
 public class Mago {
 
     @Id
@@ -95,11 +98,20 @@ public class Mago {
         }
     }
 
+    /**
+     * Lanza un hechizo básico contra un monstruo
+     * @param mostruo el monstruo objetivo
+     */
     public void lanzarHechizo(Monstruo mostruo) {
         int nuevaVida = mostruo.getVida() - this.nivelMagia;
         mostruo.setVida(nuevaVida);
     }
 
+    /**
+     * Lanza un hechizo específico contra un monstruo
+     * @param mostruo el monstruo objetivo
+     * @param hechicin el hechizo a lanzar
+     */
     public void lanzarHechizo(Monstruo mostruo, Hechizo hechicin) {
         int dano = 0;
         List<Hechizo> hechizosConocidos = getConjuro();

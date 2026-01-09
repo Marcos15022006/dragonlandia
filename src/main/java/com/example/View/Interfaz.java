@@ -12,6 +12,9 @@ import com.example.Model.Mago;
 import com.example.Model.Monstruo;
 import com.example.Model.Tipo;
 
+/**
+ * Interfaz de usuario para el juego de Dragonlandia
+ */
 public class Interfaz {
 
     static Scanner scanner = new Scanner(System.in);
@@ -23,6 +26,9 @@ public class Interfaz {
     static Dragon dragon;
     static Bosque bosque;
 
+    /**
+     * Inicia el juego y configura los elementos iniciales
+     */
     public void iniciar() {
         System.out.println("===========================================");
         System.out.println("   BIENVENIDO A DRAGONLANDIA");
@@ -83,6 +89,9 @@ public class Interfaz {
         iniciarJuego();
     }
 
+    /**
+     * Crea el bosque del juego
+     */
     private void crearBosque() {
         System.out.println("\n--- CREACION DEL BOSQUE ---");
         System.out.print("Nombre del bosque: ");
@@ -99,6 +108,9 @@ public class Interfaz {
                 .println("Bosque '" + bosque.getNombre() + "' creado con nivel de peligro " + bosque.getnivelPeligro());
     }
 
+    /**
+     * Crea un nuevo monstruo
+     */
     private void crearMonstruo() {
         System.out.print("Nombre del monstruo: ");
         String nombreMonstruo = scanner.nextLine();
@@ -129,6 +141,9 @@ public class Interfaz {
         System.out.println("Monstruo '" + monstruo.getNombre() + "' creado exitosamente");
     }
 
+    /**
+     * Asigna un monstruo como jefe del bosque
+     */
     private void asignarMonstruoJefe() {
         System.out.println("\n--- ASIGNACION DE MONSTRUO JEFE ---");
         System.out.println("Monstruos disponibles:");
@@ -153,6 +168,9 @@ public class Interfaz {
         System.out.println("'" + jefe.getNombre() + "' ha sido asignado como monstruo jefe del bosque");
     }
 
+    /**
+     * Crea el dragon del juego
+     */
     private void crearDragon() {
         System.out.println("\n--- CREACION DEL DRAGON ---");
         System.out.print("Nombre del dragon: ");
@@ -175,6 +193,9 @@ public class Interfaz {
         System.out.println("Dragon '" + dragon.getNombre() + "' creado exitosamente");
     }
 
+    /**
+     * Crea un nuevo mago
+     */
     private void crearMago() {
         System.out.print("Nombre del mago: ");
         String nombreMago = scanner.nextLine();
@@ -216,6 +237,9 @@ public class Interfaz {
         System.out.println("Mago '" + mago.getNombre() + "' creado exitosamente");
     }
 
+    /**
+     * Inicia el bucle principal del juego
+     */
     private void iniciarJuego() {
         int ronda = 1;
         boolean juegoActivo = true;
@@ -243,10 +267,12 @@ public class Interfaz {
         mostrarResultadoFinal();
     }
 
+    /**
+     * Ejecuta el turno de los magos
+     */
     private void turnoMagos() {
         System.out.println("\n--- TURNO DE LOS MAGOS ---");
 
-        // Listar todos los hechizos disponibles en el juego
         Hechizo[] hechizosDisponibles = Hechizo.values();
 
         for (Mago mago : new ArrayList<>(magosVivos)) {
@@ -303,8 +329,6 @@ public class Interfaz {
                     } else {
                         controlador.actualizarMago(mago);
                     }
-                    // Actualizar vida del monstruo objetivo
-                    controlador.actualizarMonstruo(monstruoObjetivo);
 
                     // Verificar si el monstruo murio
                     if (monstruoObjetivo.getVida() <= 0) {
@@ -327,6 +351,9 @@ public class Interfaz {
         }
     }
 
+    /**
+     * Ejecuta el turno de los monstruos
+     */
     private void turnoMonstruos() {
         System.out.println("\n--- TURNO DE LOS MONSTRUOS ---");
 
@@ -353,6 +380,9 @@ public class Interfaz {
         }
     }
 
+    /**
+     * Ejecuta el turno del dragon
+     */
     private void turnoDragon() {
         System.out.println("\n--- TURNO DEL DRAGON ---");
 
@@ -378,7 +408,6 @@ public class Interfaz {
                     bosque.getListaMontruos().remove(jefe);
                     controlador.eliminarMonstruo(jefe);
 
-                    // Asignar nuevo jefe
                     asignarNuevoJefe();
                 } else {
                     controlador.actualizarMonstruo(jefe);
@@ -402,6 +431,9 @@ public class Interfaz {
         }
     }
 
+    /**
+     * Asigna un nuevo jefe cuando el actual muere
+     */
     private void asignarNuevoJefe() {
         if (monstruosVivos.isEmpty()) {
             System.out.println("No quedan monstruos vivos para asignar como jefe");
@@ -417,6 +449,9 @@ public class Interfaz {
         }
     }
 
+    /**
+     * Muestra el estado actual del juego
+     */
     private void mostrarEstado() {
         System.out.println("\n===========================================");
         System.out.println("   ESTADO ACTUAL DEL JUEGO");
@@ -478,6 +513,9 @@ public class Interfaz {
         }
     }
 
+    /**
+     * Muestra el resultado final del juego
+     */
     private void mostrarResultadoFinal() {
         System.out.println("\n===========================================");
         System.out.println("   FIN DEL JUEGO");

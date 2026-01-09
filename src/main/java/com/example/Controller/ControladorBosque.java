@@ -4,6 +4,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import com.example.Model.Bosque;
 
+/**
+ * Controlador para operaciones CRUD de Bosque
+ */
 public class ControladorBosque {
     
     private Controlador controladorPrincipal;
@@ -12,6 +15,10 @@ public class ControladorBosque {
         this.controladorPrincipal = controladorPrincipal;
     }
     
+    /**
+     * Guarda un bosque en la base de datos
+     * @param bosque el bosque a guardar
+     */
     public void guardar(Bosque bosque) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -35,6 +42,10 @@ public class ControladorBosque {
         }
     }
     
+    /**
+     * Actualiza un bosque en la base de datos
+     * @param bosque el bosque a actualizar
+     */
     public void actualizar(Bosque bosque) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -58,6 +69,10 @@ public class ControladorBosque {
         }
     }
     
+    /**
+     * Elimina un bosque de la base de datos
+     * @param bosque el bosque a eliminar
+     */
     public void eliminar(Bosque bosque) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -82,6 +97,11 @@ public class ControladorBosque {
         }
     }
     
+    /**
+     * Obtiene un bosque por su ID
+     * @param id el identificador del bosque
+     * @return el bosque encontrado o null
+     */
     public Bosque obtener(int id) {
         EntityManager em = null;
         try {

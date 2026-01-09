@@ -9,8 +9,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "bosques")
 
-/*Posteriormente añadir que en un bosque puede haber varios monstruos */
-
+/**
+ * Representa un bosque que contiene monstruos y dragones
+ */
 public class Bosque {
 
     @Id
@@ -97,10 +98,17 @@ public class Bosque {
         this.listaDragon = listaDragon;
     }
 
+    /**
+     * Muestra la información del monstruo jefe
+     */
     public void mostrarJefe() {
         System.out.println("El mounstro Jefe del bosque: " + monstruoJefe.getNombre() +", " + monstruoJefe.geTipo()+", vida: "+monstruoJefe.getVida()+", fuerza:"+monstruoJefe.getFuerza() );
     }
 
+    /**
+     * Cambia el monstruo jefe del bosque
+     * @param nuevoJefe el nuevo monstruo jefe
+     */
     public void cambiarJefe( Monstruo nuevoJefe){
         this.monstruoJefe=nuevoJefe;
     }

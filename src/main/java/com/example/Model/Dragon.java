@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "dragones")
+/**
+ * Representa un dragon que habita en un bosque
+ */
 public class Dragon {
 
     @Id
@@ -78,6 +81,10 @@ public class Dragon {
         }
     }
 
+    /**
+     * El dragon exhala fuego sobre un monstruo
+     * @param monstruo el monstruo atacado
+     */
     public void exhalar(Monstruo monstruo){
         int nuevaVida = monstruo.getVida() - this.intensidadFuego;
         monstruo.setVida(nuevaVida);

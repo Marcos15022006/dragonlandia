@@ -2,6 +2,9 @@ package com.example.Model;
 
 import java.util.Objects;
 
+/**
+ * Representa un hechizo que puede lanzar un mago
+ */
 public class Hechizo {
     
     public static final Hechizo BOLA_DE_FUEGO = new Hechizo("BOLA_DE_FUEGO");
@@ -26,6 +29,11 @@ public class Hechizo {
         this.nombre = nombre;
     }
     
+    /**
+     * Obtiene un hechizo por su nombre
+     * @param nombre el nombre del hechizo
+     * @return el hechizo correspondiente
+     */
     public static Hechizo valueOf(String nombre) {
         switch (nombre.toUpperCase()) {
             case "BOLA_DE_FUEGO":

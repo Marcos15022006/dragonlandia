@@ -4,6 +4,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import com.example.Model.Dragon;
 
+/**
+ * Controlador para operaciones CRUD de Dragon
+ */
 public class ControladorDragon {
     
     private Controlador controladorPrincipal;
@@ -12,6 +15,10 @@ public class ControladorDragon {
         this.controladorPrincipal = controladorPrincipal;
     }
     
+    /**
+     * Guarda un dragon en la base de datos
+     * @param dragon el dragon a guardar
+     */
     public void guardar(Dragon dragon) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -35,6 +42,10 @@ public class ControladorDragon {
         }
     }
     
+    /**
+     * Actualiza un dragon en la base de datos
+     * @param dragon el dragon a actualizar
+     */
     public void actualizar(Dragon dragon) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -58,6 +69,10 @@ public class ControladorDragon {
         }
     }
     
+    /**
+     * Elimina un dragon de la base de datos
+     * @param dragon el dragon a eliminar
+     */
     public void eliminar(Dragon dragon) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -82,6 +97,11 @@ public class ControladorDragon {
         }
     }
     
+    /**
+     * Obtiene un dragon por su ID
+     * @param id el identificador del dragon
+     * @return el dragon encontrado o null
+     */
     public Dragon obtener(int id) {
         EntityManager em = null;
         try {

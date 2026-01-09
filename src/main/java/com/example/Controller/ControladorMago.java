@@ -4,6 +4,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import com.example.Model.Mago;
 
+/**
+ * Controlador para operaciones CRUD de Mago
+ */
 public class ControladorMago {
     
     private Controlador controladorPrincipal;
@@ -12,6 +15,10 @@ public class ControladorMago {
         this.controladorPrincipal = controladorPrincipal;
     }
     
+    /**
+     * Guarda un mago en la base de datos
+     * @param mago el mago a guardar
+     */
     public void guardar(Mago mago) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -35,6 +42,10 @@ public class ControladorMago {
         }
     }
     
+    /**
+     * Actualiza un mago en la base de datos
+     * @param mago el mago a actualizar
+     */
     public void actualizar(Mago mago) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -58,6 +69,10 @@ public class ControladorMago {
         }
     }
     
+    /**
+     * Elimina un mago de la base de datos
+     * @param mago el mago a eliminar
+     */
     public void eliminar(Mago mago) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -82,6 +97,11 @@ public class ControladorMago {
         }
     }
     
+    /**
+     * Obtiene un mago por su ID
+     * @param id el identificador del mago
+     * @return el mago encontrado o null
+     */
     public Mago obtener(int id) {
         EntityManager em = null;
         try {

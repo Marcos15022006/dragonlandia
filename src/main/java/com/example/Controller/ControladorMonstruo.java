@@ -4,6 +4,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import com.example.Model.Monstruo;
 
+/**
+ * Controlador para operaciones CRUD de Monstruo
+ */
 public class ControladorMonstruo {
     
     private Controlador controladorPrincipal;
@@ -12,6 +15,10 @@ public class ControladorMonstruo {
         this.controladorPrincipal = controladorPrincipal;
     }
     
+    /**
+     * Guarda un monstruo en la base de datos
+     * @param monstruo el monstruo a guardar
+     */
     public void guardar(Monstruo monstruo) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -35,6 +42,10 @@ public class ControladorMonstruo {
         }
     }
     
+    /**
+     * Actualiza un monstruo en la base de datos
+     * @param monstruo el monstruo a actualizar
+     */
     public void actualizar(Monstruo monstruo) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -58,6 +69,10 @@ public class ControladorMonstruo {
         }
     }
     
+    /**
+     * Elimina un monstruo de la base de datos
+     * @param monstruo el monstruo a eliminar
+     */
     public void eliminar(Monstruo monstruo) {
         EntityManager em = null;
         EntityTransaction tx = null;
@@ -82,6 +97,11 @@ public class ControladorMonstruo {
         }
     }
     
+    /**
+     * Obtiene un monstruo por su ID
+     * @param id el identificador del monstruo
+     * @return el monstruo encontrado o null
+     */
     public Monstruo obtener(int id) {
         EntityManager em = null;
         try {

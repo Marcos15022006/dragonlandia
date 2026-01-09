@@ -3,6 +3,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "monstruos")
 
+/**
+ * Representa un monstruo con características de combate
+ */
 public class Monstruo {
 
     @Id
@@ -86,7 +89,10 @@ public class Monstruo {
         this.bosque = bosque;
     }
 
-
+    /**
+     * Ataca a un mago reduciendo su vida
+     * @param mago el mago atacado
+     */
     public void atacar(Mago mago) {
         int nuevaVida = mago.getVida() - this.fuerza;
         mago.setVida(nuevaVida);
