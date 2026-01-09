@@ -17,6 +17,18 @@ classDiagram
       -int nivelPeligro
       -List~Monstruo~ listaMontruos
       -List~Dragon~ listaDragon
+      +getId() int
+      +setId(int)
+      +getNombre() String
+      +setNombre(String)
+      +getnivelPeligro() int
+      +setNivelPeligro(int)
+      +getMonstruoJefe() Monstruo
+      +setMonstruoJefe(Monstruo)
+      +getListaMontruos() List~Monstruo~
+      +setListaMontruos(List~Monstruo~)
+      +getListaDragon() List~Dragon~
+      +setListaDragon(List~Dragon~)
       +mostrarJefe()
       +cambiarJefe(Monstruo)
       +addMonstruo(Monstruo)
@@ -29,6 +41,16 @@ classDiagram
       -int intensidadFuego
       -int resistencia
       -Bosque bosque
+      +getId() int
+      +setId(int)
+      +getNombre() String
+      +setNombre(String)
+      +getIntensidadFuego() int
+      +setIntensidadFuego(int)
+      +getResistencia() int
+      +setResistencia(int)
+      +getBosque() Bosque
+      +setBosque(Bosque)
       +exhalar(Monstruo)
     }
 
@@ -37,7 +59,18 @@ classDiagram
       -String nombre
       -int vida
       -int nivelMagia
+      -List~String~ conjuroNombres
       -List~Hechizo~ conjuro
+      +getId() int
+      +setId(int)
+      +getNombre() String
+      +setNombre(String)
+      +getVida() int
+      +setVida(int)
+      +getNivelMagia() int
+      +setNivelMagia(int)
+      +getConjuro() List~Hechizo~
+      +setConjuro(List~Hechizo~)
       +lanzarHechizo(Monstruo)
       +lanzarHechizo(Monstruo, Hechizo)
     }
@@ -45,10 +78,22 @@ classDiagram
     class Monstruo {
       -int id
       -String nombre
-      -int fuerza
       -int vida
+      -int fuerza
       -Tipo tipo
       -Bosque bosque
+      +getId() int
+      +setId(int)
+      +getNombre() String
+      +setNombre(String)
+      +getVida() int
+      +setVida(int)
+      +getFuerza() int
+      +setFuerza(int)
+      +geTipo() Tipo
+      +setTipo(Tipo)
+      +getBosque() Bosque
+      +setBosque(Bosque)
       +atacar(Mago)
     }
 
@@ -58,6 +103,7 @@ classDiagram
       BOLA_DE_NIEVE
       RAYO
       PUTREFACCION
+      +getNombre() String
     }
 
     class Tipo {
@@ -70,19 +116,84 @@ classDiagram
     class Interfaz {
       -Scanner scanner
       -Controlador controlador
-      -List~Monstruo~ monstruos
-      +crearMonstruo(boolean) Monstruo
+      -List~Mago~ magosVivos
+      -List~Mago~ magosMuertos
+      -List~Monstruo~ monstruosVivos
+      -List~Monstruo~ monstruosMuertos
+      -Dragon dragon
+      -Bosque bosque
       +iniciar()
+      +crearBosque()
+      +crearMonstruo()
+      +crearDragon()
+      +crearMago()
+      +asignarMonstruoJefe()
+      +iniciarJuego()
     }
 
     class Controlador {
-      -SessionFactory sessionFactory
-      -getSessionFactory() SessionFactory
-      +cerrarSessionFactory()
+      -EntityManagerFactory entityManagerFactory$
+      -Controlador instance$
+      -ControladorMago controladorMago
+      -ControladorMonstruo controladorMonstruo
+      -ControladorDragon controladorDragon
+      -ControladorBosque controladorBosque
+      +getInstance()$ Controlador
+      +getEntityManager() EntityManager
+      +cerrarEntityManagerFactory()$
+      +cerrarSessionFactory()$
+      +getControladorMago() ControladorMago
+      +getControladorMonstruo() ControladorMonstruo
+      +getControladorDragon() ControladorDragon
+      +getControladorBosque() ControladorBosque
       +guardarMago(Mago)
+      +actualizarMago(Mago)
+      +eliminarMago(Mago)
+      +obtenerMago(int)
       +guardarBosque(Bosque)
+      +actualizarBosque(Bosque)
+      +eliminarBosque(Bosque)
+      +obtenerBosque(int)
       +guardarMonstruo(Monstruo)
-      +combate(Monstruo, Mago) String
+      +actualizarMonstruo(Monstruo)
+      +eliminarMonstruo(Monstruo)
+      +obtenerMonstruo(int)
+      +guardarDragon(Dragon)
+      +actualizarDragon(Dragon)
+      +eliminarDragon(Dragon)
+      +obtenerDragon(int)
+    }
+    
+    class ControladorMago {
+      -Controlador controladorPrincipal
+      +guardar(Mago)
+      +actualizar(Mago)
+      +eliminar(Mago)
+      +obtener(int) Mago
+    }
+    
+    class ControladorMonstruo {
+      -Controlador controladorPrincipal
+      +guardar(Monstruo)
+      +actualizar(Monstruo)
+      +eliminar(Monstruo)
+      +obtener(int) Monstruo
+    }
+    
+    class ControladorDragon {
+      -Controlador controladorPrincipal
+      +guardar(Dragon)
+      +actualizar(Dragon)
+      +eliminar(Dragon)
+      +obtener(int) Dragon
+    }
+    
+    class ControladorBosque {
+      -Controlador controladorPrincipal
+      +guardar(Bosque)
+      +actualizar(Bosque)
+      +eliminar(Bosque)
+      +obtener(int) Bosque
     }
     
     class Main {
@@ -100,11 +211,22 @@ classDiagram
     Mago --> Monstruo : lanzarHechizo
     Monstruo --> Mago : atacar
     
-    Main --> Interfaz : Inicia
-    Interfaz --> Monstruo : Crea
-    Interfaz --> Mago : Crea
-    Interfaz --> Bosque : Crea
-    Interfaz --> Controlador : Usa
+    Main --> Interfaz : inicia
+    Interfaz --> Monstruo : crea
+    Interfaz --> Mago : crea
+    Interfaz --> Bosque : crea
+    Interfaz --> Dragon : crea
+    Interfaz --> Controlador : usa
+    
+    Controlador "1" --> "1" ControladorMago : delega
+    Controlador "1" --> "1" ControladorMonstruo : delega
+    Controlador "1" --> "1" ControladorDragon : delega
+    Controlador "1" --> "1" ControladorBosque : delega
+    
+    ControladorMago --> Controlador : usa
+    ControladorMonstruo --> Controlador : usa
+    ControladorDragon --> Controlador : usa
+    ControladorBosque --> Controlador : usa
 ```
 
 ## Diseño
@@ -116,6 +238,7 @@ erDiagram
     BOSQUES ||--o{ MONSTRUOS : "contiene"
     BOSQUES ||--o{ DRAGONES : "contiene"
     BOSQUES ||--o| MONSTRUOS : "monstruoJefe"
+    MAGOS ||--o{ MAGO_HECHIZOS : "tiene"
     
     BOSQUES {
         int id PK
@@ -146,5 +269,10 @@ erDiagram
         string nombre
         int vida
         int nivelMagia
+    }
+    
+    MAGO_HECHIZOS {
+        int mago_id FK
+        string hechizo
     }
 ```
