@@ -22,14 +22,14 @@ Antes de nada se debe ejecutar la aplicación.
   
     ![Imagen continuar](imagenes/AsignarJefe.png)
 
-## Dragon
+### Dragon
 Despues de la creación de los monstruos a la asaignación del monstruo jefe se procedera con la creación del Dragón( solo habra 1). Para la creación del dragón se necesitaran los campos de su nombre, su resistencia ( cantidad de puntos de daño que puede recibir), y su Intesidad de fuego( daño de ataque).
 
 ![Imagen creación dragón](imagenes/CreacionDragon.png)
 
 A la hora del combate **el dragón atacará automáticamente al monstruo jefe**
 
-## Magos
+### Magos
 Para terminar la creación del entorno para la batalla se procedera con la creación de los magos.
  *  Se deben crear un mínimo de 2 magos con los campos de nombre, vida( cantidad de daño que pueden aumir antes de morir), nivel de magia(cantidad de daño que hace al atacar, sin tener en cuenta las especificaciones de los hechizos), y los hechizos que conoce(se tienen que elegir un mínimo de 2 hechizo y un máximo de 4 entre **rayo, bola_de_nieve, bola_de_fuego y putrefaccion**  ), el mago usara los hechizos para atacar. 
   
