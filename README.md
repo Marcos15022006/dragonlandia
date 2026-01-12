@@ -276,3 +276,7 @@ erDiagram
         string hechizo
     }
 ```
+
+## Manual de usuario
+
+[Manual de usuario - Dragonlandia](ManualUsuario.md)
