@@ -26,6 +26,7 @@ Antes de nada se debe ejecutar la aplicación.
 Despues de la creación de los monstruos a la asaignación del monstruo jefe se procedera con la creación del Dragón( solo habra 1). Para la creación del dragón se necesitaran los campos de su nombre, su resistencia ( cantidad de puntos de daño que puede recibir), y su Intesidad de fuego( daño de ataque).
 
 ![Imagen creación dragón](imagenes/CreacionDragon.png)
+
 A la hora del combate **el dragón atacará automáticamente al monstruo jefe**
 
 ## Magos
