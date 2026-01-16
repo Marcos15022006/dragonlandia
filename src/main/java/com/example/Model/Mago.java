@@ -1,5 +1,5 @@
 
-package com.example.Model;
+package com.example.model;
 import java.util.List;
 
 import jakarta.persistence.*;

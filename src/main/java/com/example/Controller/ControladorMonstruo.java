@@ -1,8 +1,9 @@
-package com.example.Controller;
+package com.example.controller;
+
+import com.example.model.Monstruo;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import com.example.Model.Monstruo;
 
 /**
  * Controlador para operaciones CRUD de Monstruo

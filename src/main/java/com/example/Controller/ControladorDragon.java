@@ -1,8 +1,9 @@
-package com.example.Controller;
+package com.example.controller;
+
+import com.example.model.Dragon;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import com.example.Model.Dragon;
 
 /**
  * Controlador para operaciones CRUD de Dragon

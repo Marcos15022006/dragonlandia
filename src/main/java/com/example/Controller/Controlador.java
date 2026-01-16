@@ -1,12 +1,12 @@
-package com.example.Controller;
+package com.example.controller;
+import com.example.model.Bosque;
+import com.example.model.Dragon;
+import com.example.model.Mago;
+import com.example.model.Monstruo;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-
-import com.example.Model.Bosque;
-import com.example.Model.Dragon;
-import com.example.Model.Mago;
-import com.example.Model.Monstruo;
 
 /**
  * Controlador principal que gestiona las operaciones de persistencia

@@ -1,7 +1,7 @@
-package com.example.Model;
+package com.example.model;
 
-import com.example.Controller.Controlador;
-import com.example.View.Interfaz;
+import com.example.controller.Controlador;
+import com.example.view.Interfaz;
 
 /**
  * Clase principal que inicia la aplicación

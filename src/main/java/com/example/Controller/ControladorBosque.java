@@ -1,8 +1,9 @@
-package com.example.Controller;
+package com.example.controller;
+
+import com.example.model.Bosque;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import com.example.Model.Bosque;
 
 /**
  * Controlador para operaciones CRUD de Bosque

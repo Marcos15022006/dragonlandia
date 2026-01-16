@@ -1,16 +1,16 @@
-package com.example.View;
+package com.example.view;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.example.Controller.Controlador;
-import com.example.Model.Bosque;
-import com.example.Model.Dragon;
-import com.example.Model.Hechizo;
-import com.example.Model.Mago;
-import com.example.Model.Monstruo;
-import com.example.Model.Tipo;
+import com.example.controller.Controlador;
+import com.example.model.Bosque;
+import com.example.model.Dragon;
+import com.example.model.Hechizo;
+import com.example.model.Mago;
+import com.example.model.Monstruo;
+import com.example.model.Tipo;
 
 /**
  * Interfaz de usuario para el juego de Dragonlandia
