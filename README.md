@@ -17,18 +17,6 @@ classDiagram
       -int nivelPeligro
       -List~Monstruo~ listaMontruos
       -List~Dragon~ listaDragon
-      +getId() int
-      +setId(int)
-      +getNombre() String
-      +setNombre(String)
-      +getnivelPeligro() int
-      +setNivelPeligro(int)
-      +getMonstruoJefe() Monstruo
-      +setMonstruoJefe(Monstruo)
-      +getListaMontruos() List~Monstruo~
-      +setListaMontruos(List~Monstruo~)
-      +getListaDragon() List~Dragon~
-      +setListaDragon(List~Dragon~)
       +mostrarJefe()
       +cambiarJefe(Monstruo)
       +addMonstruo(Monstruo)
@@ -41,16 +29,6 @@ classDiagram
       -int intensidadFuego
       -int resistencia
       -Bosque bosque
-      +getId() int
-      +setId(int)
-      +getNombre() String
-      +setNombre(String)
-      +getIntensidadFuego() int
-      +setIntensidadFuego(int)
-      +getResistencia() int
-      +setResistencia(int)
-      +getBosque() Bosque
-      +setBosque(Bosque)
       +exhalar(Monstruo)
     }
 
@@ -61,16 +39,6 @@ classDiagram
       -int nivelMagia
       -List~String~ conjuroNombres
       -List~Hechizo~ conjuro
-      +getId() int
-      +setId(int)
-      +getNombre() String
-      +setNombre(String)
-      +getVida() int
-      +setVida(int)
-      +getNivelMagia() int
-      +setNivelMagia(int)
-      +getConjuro() List~Hechizo~
-      +setConjuro(List~Hechizo~)
       +lanzarHechizo(Monstruo)
       +lanzarHechizo(Monstruo, Hechizo)
     }
@@ -82,18 +50,6 @@ classDiagram
       -int fuerza
       -Tipo tipo
       -Bosque bosque
-      +getId() int
-      +setId(int)
-      +getNombre() String
-      +setNombre(String)
-      +getVida() int
-      +setVida(int)
-      +getFuerza() int
-      +setFuerza(int)
-      +geTipo() Tipo
-      +setTipo(Tipo)
-      +getBosque() Bosque
-      +setBosque(Bosque)
       +atacar(Mago)
     }
 
@@ -185,15 +141,10 @@ classDiagram
     }
 
     Bosque "1" --> "0..1" Monstruo : monstruoJefe
-    Bosque "1" --> "*" Monstruo : listaMonstruos
-    Bosque "1" --> "*" Dragon : listaDragon
     Monstruo "*" --> "1" Tipo : tipo
-    Monstruo "*" --> "0..1" Bosque : bosque
-    Dragon "*" --> "0..1" Bosque : bosque
-    Dragon --> Monstruo : exhalar
-    Mago "*" --> "*" Hechizo : conjuro
-    Mago --> Monstruo : lanzarHechizo
-    Monstruo --> Mago : atacar
+    Monstruo "*" --> "0..1" Bosque : pertenece
+    Dragon "*" --> "0..1" Bosque : pertenece
+    Mago "*" --> "*" Hechizo : posee
     
     Main --> Interfaz : inicia
     Interfaz --> Monstruo : crea
@@ -207,10 +158,6 @@ classDiagram
     Controlador "1" --> "1" ControladorDragon : delega
     Controlador "1" --> "1" ControladorBosque : delega
     
-    ControladorMago --> Controlador : usa
-    ControladorMonstruo --> Controlador : usa
-    ControladorDragon --> Controlador : usa
-    ControladorBosque --> Controlador : usa
 ```
 
 ## Diseño
