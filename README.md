@@ -280,3 +280,6 @@ erDiagram
 ## Manual de usuario
 
 [Manual de usuario - Dragonlandia](ManualUsuario.md)
+
+## Tablas después de una ronda
+[Estado tablas despues de una ronda de juego](MarcosRey_DragolandiaHibernate.pdf)
