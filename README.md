@@ -146,22 +146,6 @@ classDiagram
       +getControladorMonstruo() ControladorMonstruo
       +getControladorDragon() ControladorDragon
       +getControladorBosque() ControladorBosque
-      +guardarMago(Mago)
-      +actualizarMago(Mago)
-      +eliminarMago(Mago)
-      +obtenerMago(int)
-      +guardarBosque(Bosque)
-      +actualizarBosque(Bosque)
-      +eliminarBosque(Bosque)
-      +obtenerBosque(int)
-      +guardarMonstruo(Monstruo)
-      +actualizarMonstruo(Monstruo)
-      +eliminarMonstruo(Monstruo)
-      +obtenerMonstruo(int)
-      +guardarDragon(Dragon)
-      +actualizarDragon(Dragon)
-      +eliminarDragon(Dragon)
-      +obtenerDragon(int)
     }
     
     class ControladorMago {
